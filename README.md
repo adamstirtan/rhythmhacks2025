@@ -1,5 +1,4 @@
-# Music Recommendation Workshop
-### RhythmHacks 2025
+# RhythmHacks 2025 Music Recommendation Workshop
 
 A no-setup, browser-based app to learn and tinker with content‑based recommendations. Built with vanilla JavaScript, HTML, and CSS for a 60–90 minute workshop. Perfect for experimenting with the math and UX of recommenders.
 
