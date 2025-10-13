@@ -1,317 +1,154 @@
-# 🎵 Music Recommendation Workshop - RhythmHacks 2025
+# 🎵 Music Recommendation Workshop (RhythmHacks 2025)
 
-An interactive educational app that teaches content-based filtering through a hands-on music recommendation system. Built with vanilla JavaScript for a 60-minute workshop with high school students.
+A no-setup, browser-based app to learn and tinker with content‑based recommendations. Built with vanilla JavaScript, HTML, and CSS for a 60–90 minute workshop. Perfect for experimenting with the math and UX of recommenders.
 
-## 🚀 Quick Start
+## 🚀 Quick start
 
-**No installation required!** Simply open `index.html` in any modern web browser.
+- Option A: Double‑click `index.html`
+- Option B (terminal):
 
-```bash
-# Option 1: Double-click index.html in your file explorer
+  ```bash
+  # macOS
+  open index.html
+  # Linux
+  xdg-open index.html
+  # Windows
+  start index.html
+  ```
 
-# Option 2: From terminal
-open index.html           # macOS
-xdg-open index.html       # Linux
-start index.html          # Windows
+- Optional live demo (GitHub Pages): This repo includes a Pages workflow. If enabled, pushes to `master` deploy the site automatically. The typical URL is `https://<your-username>.github.io/rhythmhacks2025/`.
 
-# Option 3: Drag and drop index.html into your browser
-```
+No build tools or servers required. Everything runs in the browser.
 
-The app works entirely in the browser with no server or build step needed.
+## 🎮 What you do in the app
 
-## 📚 What You'll Learn
+1. Rate songs 1–5 stars (keyboard 1–5). You must rate to proceed—no skipping, and no re‑rating past songs.
+2. Read “Why This Song?” for a breakdown of how each feature (and genre bonus) contributed to the score.
+3. Compare “Your Pref” vs “This Song” with the feature bars.
+4. Tune the four feature weights with sliders (they always sum to 1).
+5. Toggle similarity mode (Abs‑Diff vs Cosine) and the Genre Bonus, then observe what changes.
+6. Explore your rating history (view‑only) in the right column.
 
-This workshop teaches **content-based filtering** - a recommendation technique that suggests items similar to what you've liked before.
+### Controls and shortcuts
 
-### The N-Dimensional Space Concept
+- Similarity function: buttons in the right panel or press `S`
+- Genre bonus: slider in the right panel or press `G` to toggle 0 ↔︎ 0.2
+- Weights: sliders (Tempo, Energy, Danceability, Valence). Press `W` to reset to defaults
+- Debug panel: “Toggle Debug” or press `D`
+- Rate: click stars or press `1`–`5`
 
-Each song is represented as a point in 4-dimensional space using these features:
+Keyboard hints also appear at the bottom of the page.
 
-- **Tempo**: Speed in BPM (normalized to 0-1 by dividing by 200)
-- **Energy**: Intensity and activity level (0-1)
-- **Danceability**: How suitable for dancing (0-1)
-- **Valence**: Musical positivity/happiness (0-1)
+## 🧠 How it works (high level)
 
-### The Algorithm
+We use content‑based filtering on four features per song: tempo (normalized), energy, danceability, and valence. Everything is scaled to [0,1]. Tempo is normalized by dividing BPM by 200.
 
-1. **Learn Preferences**: Averages features from songs you rated 4-5 stars (with cold-start fallback)
-2. **Score Candidates**: Calculates similarity using weighted features
-3. **Recommend**: Picks the highest-scoring unrated song, with an optional genre bonus
+1. Learn your preferences from all ratings (push/pull):
 
-## 🎮 How to Use
+- 3★ is neutral. >3★ pulls your preference vector toward that song’s features; <3★ pushes it away.
+- We compute positive and negative centroids, then blend them with dataset‑level averages to avoid early drift.
 
-### Rating Songs
+2. Score each unrated song with your current weights and similarity function:
 
-- Click stars (1-5) or press number keys `1`-`5`
-- After rating, the app automatically recommends the next song
-- View your rating history in the "Your Ratings" panel
+- Abs‑Diff: per‑feature similarity $w_i\,(1 - |p_i - s_i|)$
+- Cosine: weight‑scaled cosine with a magnitude agreement factor (prefers both similar direction and overall strength)
+- Optional Genre Bonus adds when the song’s genre matches your top genre (derived from positively rated songs).
 
-### Navigation
+3. Recommend the highest‑scoring unrated song (ties broken deterministically via a seeded RNG).
 
-- **Next →**: Move to next recommended song
-- **← Previous**: Go back to previously rated songs
-- **Click any card** in Your Ratings to revisit that song
+### The math (concise)
 
-### Exploring the Algorithm
+- Normalize tempo: $tempoN = \min(tempo/200,\,1)$
+- Dataset averages (cold start): computed genre‑balanced to reduce skew.
+- Preference blending:
+  - Let $W_+$ sum of $(rating-3)$ for ratings > 3, $W_-$ sum of $(3-rating)$ for ratings < 3.
+  - Compute positive/negative means and blend from dataset averages using $\alpha_+ = \tfrac{W_+}{W_+ + W_-}$ and $\alpha_- = \tfrac{W_-}{W_+ + W_-}$.
+- Abs‑Diff score: $\text{score} = \sum_i w_i\,(1 - |p_i - s_i|)$
+- Cosine score (weight‑scaled): scale each component by $\sqrt{w_i}$, compute cosine similarity, then multiply by a magnitude agreement term; distribute contributions by weight.
+- Genre bonus: if genre matches topGenre, add $+\text{genreBonus}$.
+- Match %: $\text{match} = \Big\lfloor 100\,\cdot\,\text{clamp}\big(\tfrac{\text{score}}{\text{scoreMax}},0,1\big) \Big\rfloor$, where $\text{scoreMax} = \sum w_i + (\text{genre match?}\;\text{genreBonus}:0)$.
 
-**Similarity Functions** (toggle between):
+## 🧩 What’s in the box
 
-- **Abs-Diff**: `score = Σ weight × (1 - |preference - song|)`
-- **Cosine**: Weighted cosine similarity between preference and song vectors
+- `index.html` — App UI and layout
+- `style.css` — Modern, readable workshop styling with genre colors
+- `data.js` — Curated dataset (~140 songs) across 10 genres; optional `youtube` links per song
+- `app.js` — All logic: seeded RNG, preference learning, scoring, UI rendering, keyboard controls, and persistence
+- `PRESENTATION.md` — Slide outline to teach the concepts
+- `.github/workflows/deploy.yml` — GitHub Pages deployment workflow
 
-**Feature Weights** (sliders that always sum to 1):
+State persists in `localStorage` under key `rh2025_ratings` (ratings, current song, weights, similarity mode, genre bonus, debug visibility, seed). Clear it with the “Clear Ratings” button.
 
-- Adjust to prioritize different features
-- Watch how recommendations change in real-time
+Tips:
 
-**Genre Bonus** (0.0-0.4):
+- Deterministic seed for reproducibility: default 42, override with `?seed=123`
+- You can paste YouTube URLs into songs in `data.js`; the app embeds videos automatically when IDs are present
 
-- Extra points when song genre matches your favorite genre
-- Favorite genre = most common among 4-5 star ratings
+## 🛠️ Hack the code (guided experiments)
 
-**Demo Profiles**:
+Great first tweaks for attendees to try during or after the workshop:
 
-- **Alex's Taste**: Upbeat Pop/EDM lover (high energy, high danceability)
-- **Jordan's Taste**: Chill Ambient/Indie listener (low energy, low tempo)
+1. Add a new song
 
-### Debug Mode
+- Append a new object to `songs` in `data.js` with id, title, artist, genre, tempo, energy, danceability, valence, and optional `youtube` URL.
 
-Press `D` or click "Toggle Debug" to see:
+2. Add a 5th feature (e.g., acousticness in [0,1])
 
-- Your current preference vector
-- Active weights and their sum
-- Raw scoring details for the current song
-- Most-preferred genre
-- System info (seed, rating counts)
+- `data.js`: add `acousticness` to each song you want to use
+- `app.js`:
+  - Extend `DEFAULT_WEIGHTS` and the `state.weights`
+  - Include the feature in preference learning and `scoreSong`
+  - Normalize/scale as needed (keep features in [0,1])
+- `index.html`/`style.css`: add a slider in “Feature Weights” and a bar row in “Feature Comparison”
 
-## ⌨️ Keyboard Shortcuts
+3. Try a different similarity
 
-| Key       | Action                     |
-| --------- | -------------------------- |
-| `1`-`5`   | Rate current song          |
-| `←` / `→` | Navigate previous/next     |
-| `Space`   | Next song                  |
-| `D`       | Toggle debug panel         |
-| `W`       | Reset weights to defaults  |
-| `S`       | Toggle similarity function |
-| `G`       | Toggle genre bonus on/off  |
+- Implement Euclidean distance or Manhattan distance instead of (or in addition to) Abs‑Diff/Cosine
+- Update the toggle to include your new mode
 
-## 🎯 Workshop Flow
+4. Change tie‑breaking
 
-### 20 Minutes: Slides
+- Inside `chooseNextSong`, adjust how ties are resolved (e.g., prefer higher danceability on ties)
 
-1. What is content-based filtering?
-2. N-dimensional feature space visualization
-3. Normalization and why it matters
-4. Weights and genre bonus explained
-5. Step-through scoring example
+5. Shareable state in URL (stretch)
 
-### 40 Minutes: Hands-On Coding
+- Serialize ratings/weights into a URL param so students can share their “taste profile” links
 
-1. **Explore** (5 min): Rate songs, see recommendations
-2. **Experiment** (15 min):
-   - Adjust weight sliders
-   - Toggle similarity functions
-   - Try demo profiles
-   - Enable debug mode
-3. **Extend** (20 min): Code challenges
-   - Add a new feature (e.g., acousticness)
-   - Implement a different similarity metric
-   - Create a third demo profile
-   - Visualize the feature space
+## 🧪 Debugging and understanding
 
-## 🔧 Technical Details
+Open the Debug panel (`D`) to see:
 
-### Design Decisions
+- Your current preference vector and top genre
+- Current weights and their sum
+- Scoring details and match percentage for the current song
+- System info (seed, counts of ratings and high ratings)
 
-**Deterministic Behavior**: Uses seeded PRNG (Mulberry32) for reproducible recommendations
+Accessibility notes:
 
-- Default seed: 42
-- Override with URL param: `?seed=123`
-- Ensures students get same results for discussion
+- Stars are keyboard‑focusable radios with ARIA labels
+- Screen‑reader announcements are sent via an ARIA live region (`#sr-live`)
+- Visible focus styles are enabled across interactive elements
 
-**Normalization**:
+## 🌐 Deployment (GitHub Pages)
 
-- Tempo scaled by dividing by 200 (since typical BPM range is 60-180)
-- Other features already 0-1
-- Enables fair comparison across features
+This repo includes `.github/workflows/deploy.yml` which publishes the site on pushes to `master` when GitHub Pages is enabled for the repo.
 
-**Cold Start**:
+Steps (once per repo):
 
-- With <3 high ratings (4-5 stars), uses dataset averages
-- Ensures recommendations work immediately
-- Preference vector improves as you rate more songs
+1. Push to `master`
+2. In GitHub → Settings → Pages, ensure “Source: GitHub Actions” is selected
+3. The workflow uploads the static site artifact and deploys it to Pages
 
-**Weight Normalization**:
+After it’s enabled, your site will be available at your GitHub Pages URL.
 
-- Weights always sum to 1
-- When one slider moves, others adjust proportionally
-- Makes contribution percentages meaningful
+## ❓ FAQ
 
-**Genre Bonus**:
+- Why can’t I re‑rate an old song? To keep the learning trace simple and transparent. Use “Clear Ratings” to start fresh.
+- Why do my recommendations look similar to my friend’s? With the same seed and few ratings, the dataset average and tie‑breakers will dominate. As you rate more, your path diverges.
+- Why divide tempo by 200? It maps typical BPM ranges to [0,1] so tempo differences are comparable to the other normalized features.
 
-- Separate from feature weights
-- Applied additively after feature scoring
-- Only triggers for your most-preferred genre
+## 🙏 Credits and license
 
-### Persistence
+Created for the RhythmHacks 2025 workshop by Adam Stirtan. Educational use encouraged—fork, modify, and extend.
 
-State saved to `localStorage` under key `rh2025_ratings`:
-
-- All ratings
-- Current song
-- Weight settings
-- Similarity mode
-- Genre bonus value
-- Debug panel visibility
-
-### Code Structure
-
-```
-data.js          # 40 fictional songs with balanced features
-app.js           # All application logic
-  - PRNG & shuffle
-  - Preference calculation
-  - Similarity scoring (abs-diff & cosine)
-  - UI rendering
-  - Event handlers
-  - Demo profiles
-style.css        # Clean workshop design with genre colors
-index.html       # Semantic HTML with accessibility features
-```
-
-## 🎨 Features
-
-✅ **Educational**
-
-- Clear "Why This Song?" breakdown
-- Visual feature comparison bars
-- Debug panel with algorithm internals
-
-✅ **Accessible**
-
-- ARIA labels and live regions
-- Keyboard navigation
-- Focus-visible styles
-- Screen reader support
-
-✅ **Interactive**
-
-- Real-time weight adjustment
-- Toggleable similarity functions
-- Demo profiles for instant exploration
-
-✅ **Deterministic**
-
-- Seeded random for reproducible results
-- Perfect for classroom discussion
-
-## 🧰 Generate a Larger Dataset (Optional)
-
-If you want more meaningful personalization, you can generate a bigger dataset (e.g., 250–500 songs) from Spotify using a simple Node script.
-
-Requirements:
-
-- Node 18+
-- Spotify Developer credentials (Client ID/Secret) using Client Credentials flow
-
-Steps:
-
-1. Create a Spotify App at https://developer.spotify.com/dashboard and copy the Client ID/Secret.
-2. Run the generator:
-
-```bash
-cd /path/to/RhythmHacks2025-Recommender
-SPOTIFY_CLIENT_ID=your_id SPOTIFY_CLIENT_SECRET=your_secret \
-node scripts/generate-data.mjs --out data.generated.js --per-genre 25
-```
-
-Flags:
-
-- `--out`: output file path (default: `data.generated.js`)
-- `--per-genre`: number of tracks per genre (default: 25)
-- `--genres`: comma-separated list, optionally `Display=seed` pairs
-  - Example: `"Pop,Rock,Hip-Hop,EDM,R&B,Jazz,Classical,Country,Indie,Ambient"`
-
-When done, replace the `<script src="data.js"></script>` tag in `index.html` with your generated file (or rename it to `data.js`).
-
-Note: The script outputs the same shape used by the app (including `tempo`, `energy`, `danceability`, `valence`, and an empty `youtube` field). You can paste YouTube links later.
-
-## 📖 Algorithm Deep Dive
-
-### Preference Calculation
-
-```javascript
-// For each feature (tempo, energy, danceability, valence):
-preference[feature] = average(highRatedSongs[feature]);
-
-// Where highRatedSongs = songs rated 4 or 5 stars
-// If < 3 high ratings, use dataset averages (cold start)
-```
-
-### Abs-Diff Scoring
-
-```javascript
-score = Σ weight[i] × (1 - |preference[i] - song[i]|)
-      + (genreMatch ? genreBonus : 0)
-```
-
-### Cosine Scoring
-
-```javascript
-// Scale components by sqrt(weight)
-prefVec = [√w₁·p₁, √w₂·p₂, √w₃·p₃, √w₄·p₄]
-songVec = [√w₁·s₁, √w₂·s₂, √w₃·s₃, √w₄·s₄]
-
-// Compute cosine similarity
-similarity = dot(prefVec, songVec) / (||prefVec|| × ||songVec||)
-
-// Distribute back to per-feature contributions
-score = similarity + (genreMatch ? genreBonus : 0)
-```
-
-### Match Percentage
-
-```javascript
-scoreMax = sumOfWeights + (genreMatch ? genreBonus : 0)
-matchPct = round(100 × clamp(score / scoreMax, 0, 1))
-```
-
-## 🤔 Discussion Questions
-
-**For Students:**
-
-1. Why does changing the tempo weight dramatically affect recommendations?
-2. What happens if you set all weights equal? Why?
-3. Is abs-diff or cosine better? When would you use each?
-4. How could we handle the "cold start" problem differently?
-5. What other features could improve recommendations? (acousticness, instrumentalness, era?)
-
-**Extension Ideas:**
-
-1. Add user profiles that can be saved/loaded
-2. Implement collaborative filtering (recommend based on similar users)
-3. Add a "surprise me" mode that recommends dissimilar songs
-4. Create data visualizations (scatter plots of feature space)
-5. Support importing real Spotify data
-
-## 📄 Files
-
-- `index.html` - Main app interface
-- `style.css` - Styling and responsive design
-- `data.js` - 40 fictional songs dataset
-- `app.js` - Complete recommendation algorithm
-- `README.md` - This file
-- `PRESENTATION.md` - Workshop slides outline
-
-## 🙏 Credits
-
-Created for **RhythmHacks 2025** by Adam Stirtan.
-
-Educational workshop demonstrating content-based filtering with vanilla JavaScript.
-No frameworks, no build tools, no barriers to learning.
-
-## 📜 License
-
-This project is provided as educational material for the RhythmHacks 2025 workshop.
-Feel free to use, modify, and extend for educational purposes.
+License: Educational use license (see repository). If not specified, treat as permissive for classroom projects.
