@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Recommendation Workshop - RhythmHacks 2025</title>
+    <meta
+      name="description"
+      content="Learn content-based filtering by building a music recommendation system"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <h1>Music Recommendation Workshop</h1>
+        <p class="subtitle">RhythmHacks 2025</p>
+      </header>
+
+      <!-- Main Grid -->
+      <div class="main-grid">
+        <!-- Left Column: Player -->
+        <div>
+          <!-- Player Card -->
+          <div class="card">
+            <!-- Song Info -->
+            <div class="song-info">
+              <div id="song-title">Loading...</div>
+              <div id="song-artist">Artist</div>
+              <span id="song-genre" class="genre-badge">Genre</span>
+            </div>
+
+            <!-- Features -->
+            <div class="features-row">
+              <div class="feature-item">
+                <span class="feature-label">Tempo</span>
+                <span class="feature-value" id="feature-tempo">120</span>
+                <span class="feature-label">BPM</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-label">Energy</span>
+                <span class="feature-value" id="feature-energy">80</span>
+                <span class="feature-label">%</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-label">Dance</span>
+                <span class="feature-value" id="feature-danceability">75</span>
+                <span class="feature-label">%</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-label">Valence</span>
+                <span class="feature-value" id="feature-valence">70</span>
+                <span class="feature-label">%</span>
+              </div>
+            </div>
+
+            <!-- Embedded Video -->
+            <div class="video-section">
+              <h3>Video</h3>
+              <div class="video-wrapper" id="video-wrapper" hidden>
+                <iframe
+                  id="youtube-embed"
+                  src=""
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div id="video-placeholder" class="video-placeholder">
+                No video available for this song.
+              </div>
+            </div>
+
+            <!-- Star Rating -->
+            <div
+              class="star-rating"
+              role="radiogroup"
+              aria-label="Rate this song from 1 to 5 stars"
+            >
+              <span class="star" role="radio" tabindex="0" aria-label="1 star"
+                >☆</span
+              >
+              <span class="star" role="radio" tabindex="0" aria-label="2 stars"
+                >☆</span
+              >
+              <span class="star" role="radio" tabindex="0" aria-label="3 stars"
+                >☆</span
+              >
+              <span class="star" role="radio" tabindex="0" aria-label="4 stars"
+                >☆</span
+              >
+              <span class="star" role="radio" tabindex="0" aria-label="5 stars"
+                >☆</span
+              >
+            </div>
+
+            <!-- Why This Song -->
+            <div class="why-this">
+              <h3>Why This Song?</h3>
+              <div id="match-percentage">—</div>
+              <div id="why-breakdown"></div>
+            </div>
+
+            <!-- Feature Comparison -->
+            <div class="feature-bars">
+              <h3>Feature Comparison</h3>
+              <div id="feature-bars"></div>
+            </div>
+          </div>
+
+          <!-- How It Works -->
+          <div class="card how-it-works">
+            <h2>How It Works</h2>
+            <p>
+              This app uses <strong>content-based filtering</strong> to
+              recommend songs based on their musical features. Each song is
+              represented as a point in a 4-dimensional space using:
+            </p>
+            <ul>
+              <li>
+                <strong>Tempo</strong>: Speed in BPM, normalized to 0-1
+                (dividing by 200)
+              </li>
+              <li>
+                <strong>Energy</strong>: Intensity and activity level (0-1)
+              </li>
+              <li>
+                <strong>Danceability</strong>: How suitable for dancing (0-1)
+              </li>
+              <li>
+                <strong>Valence</strong>: Musical positivity/happiness (0-1)
+              </li>
+            </ul>
+            <p>The algorithm follows three steps:</p>
+            <ul>
+              <li>
+                <strong>Step 1: Learn your preferences</strong> - Learns from
+                <em>all</em> your ratings: 3★ is neutral, >3★ pulls toward a
+                song's features, <3★ pushes away. Tempo is normalized by /200.
+              </li>
+              <li>
+                <strong>Step 2: Score candidates</strong> - Calculates
+                similarity between your preferences and each unrated song using
+                weighted features
+              </li>
+              <li>
+                <strong>Step 3: Recommend best match</strong> - Picks the
+                highest-scoring song, with a genre bonus if it matches your
+                favorite genre
+              </li>
+            </ul>
+            <p>
+              <strong>Weights</strong> control how important each feature is
+              (always sum to 1). <strong>Genre bonus</strong> adds extra points
+              when the song's genre matches your most-rated genre. You can
+              toggle between <code>abs-diff</code> (absolute difference) and
+              <code>cosine</code> similarity methods.
+            </p>
+          </div>
+
+          <!-- Workshop Guide -->
+          <div class="card workshop-guide">
+            <h2>Workshop Guide: What to Do</h2>
+            <p>
+              Your mission: teach the recommender what you like by rating songs,
+              then experiment with the controls to see how the algorithm changes
+              what it recommends.
+            </p>
+            <h3>Step-by-step</h3>
+            <ol>
+              <li>
+                <strong>Rate songs</strong> with 1–5 stars. No skipping—every
+                rating teaches the model.
+              </li>
+              <li>
+                After a few ratings, read <strong>Why This Song?</strong> and
+                the <strong>Feature Comparison</strong> bars to understand the
+                match.
+              </li>
+              <li>
+                <strong>Tune the weights</strong>: drag one feature high and
+                others low. What kinds of songs appear? Then reset weights and
+                try a different emphasis.
+              </li>
+              <li>
+                <strong>Switch similarity</strong> (Abs-Diff vs Cosine). Does
+                the recommended song change? Why might these two methods
+                disagree?
+              </li>
+              <li>
+                Toggle the <strong>Genre Bonus</strong>. Does your top genre
+                influence the pick? Predict first, then check the result.
+              </li>
+              <li>
+                Keep rating until you notice a pattern in your preferences
+                (energy, tempo, danceability, valence).
+              </li>
+            </ol>
+
+            <h3>Mini-challenges</h3>
+            <ul>
+              <li>
+                <strong>90% Club:</strong> Achieve a ≥90% match on a song you
+                genuinely like. What settings helped you get there?
+              </li>
+              <li>
+                <strong>Detective Mode:</strong> Find one
+                <em>false positive</em> (high match but you don’t like it) and
+                one <em>false negative</em> (low match but you like it). What
+                features misled the model?
+              </li>
+              <li>
+                <strong>Tuning Challenge:</strong> If the bars show a mismatch
+                on one feature, adjust weights to reduce that mismatch without
+                hurting overall match.
+              </li>
+            </ul>
+
+            <h3>Tips</h3>
+            <ul>
+              <li>
+                Match % depends on your <strong>weights</strong> and the
+                <strong>genre bonus</strong>.
+              </li>
+              <li>
+                Your <strong>ratings history</strong> is view-only—you can’t
+                re-rate past songs.
+              </li>
+              <li>
+                Keyboard: 1–5 to rate, D = toggle debug, W = reset weights, S =
+                toggle similarity, G = toggle genre bonus.
+              </li>
+              <li>
+                Tempo is normalized by /200 so it fits with other 0–1 features.
+              </li>
+            </ul>
+
+            <p class="note">
+              Done early? Reset weights and try a different “persona” (e.g.,
+              chill/low-energy vs hype/high-energy). Compare how Abs-Diff vs
+              Cosine behaves for each persona.
+            </p>
+          </div>
+
+          <!-- Keyboard Hints -->
+          <div class="keyboard-hint">
+            <strong>Keyboard Shortcuts:</strong>
+            <kbd>1</kbd>-<kbd>5</kbd> Rate | <kbd>D</kbd> Debug |
+            <kbd>W</kbd> Reset Weights | <kbd>S</kbd> Toggle Similarity |
+            <kbd>G</kbd> Toggle Genre Bonus
+          </div>
+
+          <!-- The Math Behind Similarity (moved to last) -->
+          <div class="card math-explainer">
+            <h2>The Math Behind Similarity</h2>
+            <p>
+              We compare your preferences
+              <code>p = [tempoN, energy, danceability, valence]</code> with a
+              song's features <code>s</code> using one of two functions (<strong
+                >current mode:</strong
+              >
+              <code id="math-mode-name">abs-diff</code>):
+            </p>
+            <ul>
+              <li>
+                <strong>Abs-Diff</strong> (weighted absolute difference):
+                <br />
+                <code>score = Σ w_i · (1 − |p_i − s_i|)</code>
+                <br />
+                Each feature is in [0,1] (tempo is normalized by /200). The best
+                possible per-feature term is 1 when they match exactly.
+              </li>
+              <li>
+                <strong>Cosine</strong> (weighted cosine similarity):
+                <br />
+                Scale each component by <code>√w_i</code>, then compute
+                <code>sim = (p·s) / (||p||·||s||)</code>, where
+                <code>p</code> and <code>s</code> are the scaled vectors.
+                <br />
+                We convert this into a score in [0,1].
+              </li>
+            </ul>
+            <p>
+              <strong>Genre bonus:</strong> If a song's genre matches your
+              most-rated genre, we add a bonus:
+              <code>score += genreBonus</code>.
+            </p>
+            <p>
+              <strong>Match %:</strong>
+              <code
+                >match = round(100 · score / (Σw + bonus_if_applicable))</code
+              >, clamped to [0,100]. Here <code>Σw</code> is the sum of feature
+              weights (1 by default), and the denominator includes the genre
+              bonus only when it applies.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Controls & History -->
+        <div>
+          <!-- Controls -->
+          <div class="card">
+            <h2>Controls</h2>
+
+            <!-- Similarity Mode -->
+            <div class="controls-section">
+              <h3>Similarity Function</h3>
+              <div class="similarity-toggle">
+                <button class="similarity-btn active" data-mode="abs-diff">
+                  Abs-Diff
+                </button>
+                <button class="similarity-btn" data-mode="cosine">
+                  Cosine
+                </button>
+              </div>
+            </div>
+
+            <!-- Feature Weights -->
+            <div class="controls-section">
+              <h3>Feature Weights</h3>
+
+              <div class="weight-control">
+                <div class="weight-label">
+                  <span class="weight-name">Tempo</span>
+                  <span class="weight-value" id="weight-tempo-value">0.20</span>
+                </div>
+                <input
+                  type="range"
+                  id="weight-tempo"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.2"
+                />
+              </div>
+
+              <div class="weight-control">
+                <div class="weight-label">
+                  <span class="weight-name">Energy</span>
+                  <span class="weight-value" id="weight-energy-value"
+                    >0.30</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="weight-energy"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.3"
+                />
+              </div>
+
+              <div class="weight-control">
+                <div class="weight-label">
+                  <span class="weight-name">Danceability</span>
+                  <span class="weight-value" id="weight-danceability-value"
+                    >0.30</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="weight-danceability"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.3"
+                />
+              </div>
+
+              <div class="weight-control">
+                <div class="weight-label">
+                  <span class="weight-name">Valence</span>
+                  <span class="weight-value" id="weight-valence-value"
+                    >0.20</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="weight-valence"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="0.2"
+                />
+              </div>
+            </div>
+
+            <!-- Genre Bonus -->
+            <div class="controls-section">
+              <h3>Genre Bonus</h3>
+              <div class="weight-control">
+                <div class="weight-label">
+                  <span class="weight-name">Bonus</span>
+                  <span class="weight-value" id="genre-bonus-value">0.20</span>
+                </div>
+                <input
+                  type="range"
+                  id="genre-bonus"
+                  min="0"
+                  max="0.4"
+                  step="0.05"
+                  value="0.2"
+                />
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="controls-section">
+              <div class="control-buttons">
+                <button id="btn-reset-weights" class="secondary">
+                  Reset Weights
+                </button>
+                <button id="btn-toggle-debug" class="secondary">
+                  Toggle Debug
+                </button>
+                <button id="btn-clear-ratings" class="secondary">
+                  Clear Ratings
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ratings History -->
+          <div class="card">
+            <h2>Your Ratings</h2>
+            <div id="ratings-list"></div>
+          </div>
+
+          <!-- Debug Panel -->
+          <div class="card" id="debug-panel">
+            <h2>Debug Info</h2>
+            <div id="debug-content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accessibility -->
+    <div id="sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
