@@ -1,28 +1,16 @@
-# 🎵 Music Recommendation Workshop (RhythmHacks 2025)
+# RhythmHacks 2025 Music Recommendation Workshop
 
 A no-setup, browser-based app to learn and tinker with content‑based recommendations. Built with vanilla JavaScript, HTML, and CSS for a 60–90 minute workshop. Perfect for experimenting with the math and UX of recommenders.
 
-## 🚀 Quick start
+## Getting started
 
-- Option A: Double‑click `index.html`
-- Option B (terminal):
+[Live Demo](https://adamstirtan.github.io/rhythmhacks2025/)
 
-  ```bash
-  # macOS
-  open index.html
-  # Linux
-  xdg-open index.html
-  # Windows
-  start index.html
-  ```
+No build tools or servers required. Everything runs in the browser. Download the source code and open index.html in your browser.
 
-- Optional live demo (GitHub Pages): This repo includes a Pages workflow. If enabled, pushes to `master` deploy the site automatically. The typical URL is `https://<your-username>.github.io/rhythmhacks2025/`.
+## What you do in the app
 
-No build tools or servers required. Everything runs in the browser.
-
-## 🎮 What you do in the app
-
-1. Rate songs 1–5 stars (keyboard 1–5). You must rate to proceed—no skipping, and no re‑rating past songs.
+1. Rate songs 1–5 stars (keyboard 1–5). You must rate to proceed, no skipping.
 2. Read “Why This Song?” for a breakdown of how each feature (and genre bonus) contributed to the score.
 3. Compare “Your Pref” vs “This Song” with the feature bars.
 4. Tune the four feature weights with sliders (they always sum to 1).
@@ -39,7 +27,7 @@ No build tools or servers required. Everything runs in the browser.
 
 Keyboard hints also appear at the bottom of the page.
 
-## 🧠 How it works (high level)
+## How it works (high level)
 
 We use content‑based filtering on four features per song: tempo (normalized), energy, danceability, and valence. Everything is scaled to [0,1]. Tempo is normalized by dividing BPM by 200.
 
@@ -74,15 +62,12 @@ We use content‑based filtering on four features per song: tempo (normalized), 
 - `style.css` — Modern, readable workshop styling with genre colors
 - `data.js` — Curated dataset (~140 songs) across 10 genres; optional `youtube` links per song
 - `app.js` — All logic: seeded RNG, preference learning, scoring, UI rendering, keyboard controls, and persistence
-- `PRESENTATION.md` — Slide outline to teach the concepts
-- `.github/workflows/deploy.yml` — GitHub Pages deployment workflow
 
 State persists in `localStorage` under key `rh2025_ratings` (ratings, current song, weights, similarity mode, genre bonus, debug visibility, seed). Clear it with the “Clear Ratings” button.
 
 Tips:
 
 - Deterministic seed for reproducibility: default 42, override with `?seed=123`
-- You can paste YouTube URLs into songs in `data.js`; the app embeds videos automatically when IDs are present
 
 ## 🛠️ Hack the code (guided experiments)
 
@@ -122,30 +107,6 @@ Open the Debug panel (`D`) to see:
 - Current weights and their sum
 - Scoring details and match percentage for the current song
 - System info (seed, counts of ratings and high ratings)
-
-Accessibility notes:
-
-- Stars are keyboard‑focusable radios with ARIA labels
-- Screen‑reader announcements are sent via an ARIA live region (`#sr-live`)
-- Visible focus styles are enabled across interactive elements
-
-## 🌐 Deployment (GitHub Pages)
-
-This repo includes `.github/workflows/deploy.yml` which publishes the site on pushes to `master` when GitHub Pages is enabled for the repo.
-
-Steps (once per repo):
-
-1. Push to `master`
-2. In GitHub → Settings → Pages, ensure “Source: GitHub Actions” is selected
-3. The workflow uploads the static site artifact and deploys it to Pages
-
-After it’s enabled, your site will be available at your GitHub Pages URL.
-
-## ❓ FAQ
-
-- Why can’t I re‑rate an old song? To keep the learning trace simple and transparent. Use “Clear Ratings” to start fresh.
-- Why do my recommendations look similar to my friend’s? With the same seed and few ratings, the dataset average and tie‑breakers will dominate. As you rate more, your path diverges.
-- Why divide tempo by 200? It maps typical BPM ranges to [0,1] so tempo differences are comparable to the other normalized features.
 
 ## 🙏 Credits and license
 
