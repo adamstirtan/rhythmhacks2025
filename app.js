@@ -201,7 +201,14 @@ function computeUserPreferences(ratings, songs, datasetAverages) {
   const total = Wpos + Wneg;
   if (total === 0) {
     // No signal (all unrated or only neutral 3★) → cold start
-    return { ...datasetAverages, topGenre: null };
+    // Initialize neutral preferences at 0.5 instead of dataset averages
+    return {
+      tempoN: 0.5,
+      energy: 0.5,
+      danceability: 0.5,
+      valence: 0.5,
+      topGenre: null,
+    };
   }
 
   // Compute weighted means for pos/neg if present; else fall back to datasetAverages
@@ -515,43 +522,6 @@ function renderSong(song) {
       star.classList.remove("active");
     }
   });
-
-  // Update YouTube controls
-  const btn = document.getElementById("btn-play-youtube");
-  const link = document.getElementById("link-youtube");
-  const hasLink = !!(song.youtube && song.youtube.trim().length > 0);
-  if (btn) {
-    btn.disabled = !hasLink;
-    btn.title = hasLink
-      ? `Play ${song.title} on YouTube`
-      : "No YouTube link available";
-  }
-  if (link) {
-    link.href = hasLink ? song.youtube : "#";
-    link.setAttribute("aria-hidden", hasLink ? "false" : "true");
-  }
-
-  // Update embedded YouTube iframe
-  const videoWrapper = document.getElementById("video-wrapper");
-  const videoPlaceholder = document.getElementById("video-placeholder");
-  const iframe = document.getElementById("youtube-embed");
-  if (videoWrapper && videoPlaceholder && iframe) {
-    const vid = extractYouTubeId(song.youtube || "");
-    if (vid) {
-      const params = new URLSearchParams({
-        autoplay: "0",
-        modestbranding: "1",
-        rel: "0",
-      });
-      iframe.src = `https://www.youtube.com/embed/${vid}?${params.toString()}`;
-      videoWrapper.hidden = false;
-      videoPlaceholder.style.display = "none";
-    } else {
-      iframe.src = "";
-      videoWrapper.hidden = true;
-      videoPlaceholder.style.display = "";
-    }
-  }
 }
 
 /**
@@ -982,21 +952,6 @@ function attachEventHandlers() {
     star.addEventListener("click", () => rateSong(idx + 1));
   });
 
-  // Play on YouTube
-  const playBtn = document.getElementById("btn-play-youtube");
-  if (playBtn) {
-    playBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const song = songs.find((s) => s.id === state.currentSongId);
-      if (song && song.youtube && song.youtube.trim().length > 0) {
-        const w = window.open(song.youtube, "_blank");
-        if (w) w.opener = null;
-      }
-    });
-  }
-
-  // Navigation buttons removed: proceeding requires a rating
-
   // Similarity mode toggle
   document.querySelectorAll(".similarity-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1128,39 +1083,4 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
   init();
-}
-
-// ============================================================================
-// YOUTUBE UTILITIES
-// ============================================================================
-
-/**
- * Extract YouTube video ID from a variety of URL formats.
- * Supports watch?v=, youtu.be/, and embed/ links.
- * Returns null if not found.
- * @param {string} url
- * @returns {string|null}
- */
-function extractYouTubeId(url) {
-  if (!url) return null;
-  try {
-    const u = new URL(url);
-    // Standard watch URL
-    const v = u.searchParams.get("v");
-    if (v) return v;
-    // youtu.be short link
-    if (u.hostname.includes("youtu.be")) {
-      const parts = u.pathname.split("/").filter(Boolean);
-      return parts[0] || null;
-    }
-    // /embed/VIDEO_ID pattern
-    if (u.pathname.includes("/embed/")) {
-      const parts = u.pathname.split("/");
-      const idx = parts.indexOf("embed");
-      if (idx >= 0 && parts[idx + 1]) return parts[idx + 1];
-    }
-    return null;
-  } catch {
-    return null;
-  }
 }

@@ -10,7 +10,6 @@
  * - energy: 0-1 (how intense/active)
  * - danceability: 0-1 (how suitable for dancing)
  * - valence: 0-1 (musical positivity/happiness)
- * - youtube: optional URL string to a YouTube video (add these yourself later)
  */
 
 const songs = [
@@ -24,7 +23,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.9,
     valence: 0.9,
-    youtube: "https://www.youtube.com/watch?v=gNhKvGHat-8",
   },
   {
     id: "s02",
@@ -35,7 +33,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.8,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s03",
@@ -46,7 +43,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.82,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s04",
@@ -57,7 +53,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.86,
     valence: 0.92,
-    youtube: "",
   },
 
   // Rock
@@ -70,7 +65,6 @@ const songs = [
     energy: 0.92,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s06",
@@ -81,7 +75,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.52,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s07",
@@ -92,7 +85,6 @@ const songs = [
     energy: 0.95,
     danceability: 0.4,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s08",
@@ -103,7 +95,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.58,
     valence: 0.7,
-    youtube: "",
   },
 
   // Hip-Hop
@@ -116,7 +107,6 @@ const songs = [
     energy: 0.82,
     danceability: 0.8,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s10",
@@ -127,7 +117,6 @@ const songs = [
     energy: 0.82,
     danceability: 0.72,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s11",
@@ -138,7 +127,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.8,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s12",
@@ -149,7 +137,6 @@ const songs = [
     energy: 0.62,
     danceability: 0.92,
     valence: 0.85,
-    youtube: "",
   },
 
   // EDM
@@ -162,7 +149,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.9,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s14",
@@ -173,7 +159,6 @@ const songs = [
     energy: 0.92,
     danceability: 0.82,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s15",
@@ -184,7 +169,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.8,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s16",
@@ -195,7 +179,6 @@ const songs = [
     energy: 0.98,
     danceability: 0.92,
     valence: 0.7,
-    youtube: "",
   },
 
   // R&B
@@ -208,7 +191,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.82,
     valence: 0.75,
-    youtube: "",
   },
   {
     id: "s18",
@@ -219,7 +201,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.82,
     valence: 0.9,
-    youtube: "",
   },
   {
     id: "s19",
@@ -230,7 +211,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.6,
     valence: 0.85,
-    youtube: "",
   },
   {
     id: "s20",
@@ -241,7 +221,6 @@ const songs = [
     energy: 0.62,
     danceability: 0.7,
     valence: 0.6,
-    youtube: "",
   },
 
   // Jazz
@@ -254,7 +233,6 @@ const songs = [
     energy: 0.55,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s22",
@@ -265,7 +243,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.72,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s23",
@@ -276,7 +253,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.3,
     valence: 0.85,
-    youtube: "",
   },
   {
     id: "s24",
@@ -287,7 +263,6 @@ const songs = [
     energy: 0.62,
     danceability: 0.62,
     valence: 0.9,
-    youtube: "",
   },
 
   // Classical
@@ -300,7 +275,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.2,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s26",
@@ -311,7 +285,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.15,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s27",
@@ -322,7 +295,6 @@ const songs = [
     energy: 0.35,
     danceability: 0.3,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s28",
@@ -333,7 +305,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.25,
     valence: 0.8,
-    youtube: "",
   },
 
   // Country
@@ -346,7 +317,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.7,
     valence: 0.92,
-    youtube: "",
   },
   {
     id: "s30",
@@ -357,7 +327,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.7,
     valence: 0.85,
-    youtube: "",
   },
   {
     id: "s31",
@@ -368,7 +337,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.7,
     valence: 0.92,
-    youtube: "",
   },
   {
     id: "s32",
@@ -379,7 +347,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
 
   // Indie
@@ -392,7 +359,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.6,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s34",
@@ -403,7 +369,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.52,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s35",
@@ -414,7 +379,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.5,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s36",
@@ -425,7 +389,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.52,
     valence: 0.5,
-    youtube: "",
   },
 
   // Ambient / Chill
@@ -438,7 +401,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.18,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s38",
@@ -449,7 +411,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.55,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s39",
@@ -460,7 +421,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.6,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s40",
@@ -471,7 +431,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.2,
     valence: 0.5,
-    youtube: "",
   },
 
   // Pop - more
@@ -484,7 +443,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.92,
     valence: 0.95,
-    youtube: "",
   },
   {
     id: "s42",
@@ -495,7 +453,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.84,
     valence: 0.56,
-    youtube: "",
   },
   {
     id: "s43",
@@ -506,7 +463,6 @@ const songs = [
     energy: 0.88,
     danceability: 0.64,
     valence: 0.93,
-    youtube: "",
   },
   {
     id: "s44",
@@ -517,7 +473,6 @@ const songs = [
     energy: 0.75,
     danceability: 0.83,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s45",
@@ -528,7 +483,6 @@ const songs = [
     energy: 0.75,
     danceability: 0.75,
     valence: 0.9,
-    youtube: "",
   },
   {
     id: "s46",
@@ -539,7 +493,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.7,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s47",
@@ -550,7 +503,6 @@ const songs = [
     energy: 0.83,
     danceability: 0.79,
     valence: 0.98,
-    youtube: "",
   },
   {
     id: "s48",
@@ -561,7 +513,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.74,
     valence: 0.95,
-    youtube: "",
   },
   {
     id: "s49",
@@ -572,7 +523,6 @@ const songs = [
     energy: 0.82,
     danceability: 0.68,
     valence: 0.62,
-    youtube: "",
   },
   {
     id: "s50",
@@ -583,7 +533,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.79,
     valence: 0.65,
-    youtube: "",
   },
 
   // Rock - more
@@ -596,7 +545,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.47,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s52",
@@ -607,7 +555,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.38,
     valence: 0.55,
-    youtube: "",
   },
   {
     id: "s53",
@@ -618,7 +565,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.35,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s54",
@@ -629,7 +575,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.7,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s55",
@@ -640,7 +585,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.54,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s56",
@@ -651,7 +595,6 @@ const songs = [
     energy: 0.95,
     danceability: 0.42,
     valence: 0.45,
-    youtube: "",
   },
   {
     id: "s57",
@@ -662,7 +605,6 @@ const songs = [
     energy: 0.98,
     danceability: 0.45,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s58",
@@ -673,7 +615,6 @@ const songs = [
     energy: 0.96,
     danceability: 0.38,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s59",
@@ -684,7 +625,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.72,
     valence: 0.9,
-    youtube: "",
   },
   {
     id: "s60",
@@ -695,7 +635,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.5,
     valence: 0.9,
-    youtube: "",
   },
 
   // Hip-Hop - more
@@ -708,7 +647,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.6,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s62",
@@ -719,7 +657,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.72,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s63",
@@ -730,7 +667,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.76,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s64",
@@ -741,7 +677,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.73,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s65",
@@ -752,7 +687,6 @@ const songs = [
     energy: 0.55,
     danceability: 0.63,
     valence: 0.2,
-    youtube: "",
   },
   {
     id: "s66",
@@ -763,7 +697,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.78,
     valence: 0.45,
-    youtube: "",
   },
   {
     id: "s67",
@@ -774,7 +707,6 @@ const songs = [
     energy: 0.82,
     danceability: 0.77,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s68",
@@ -785,7 +717,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.85,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s69",
@@ -796,7 +727,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.88,
     valence: 0.65,
-    youtube: "",
   },
   {
     id: "s70",
@@ -807,7 +737,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.7,
     valence: 0.3,
-    youtube: "",
   },
 
   // EDM - more
@@ -820,7 +749,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.86,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s72",
@@ -831,7 +759,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.6,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s73",
@@ -842,7 +769,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.76,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s74",
@@ -853,7 +779,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.84,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s75",
@@ -864,7 +789,6 @@ const songs = [
     energy: 0.98,
     danceability: 0.7,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s76",
@@ -875,7 +799,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.65,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s77",
@@ -886,7 +809,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.66,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s78",
@@ -897,7 +819,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.6,
     valence: 0.3,
-    youtube: "",
   },
   {
     id: "s79",
@@ -908,7 +829,6 @@ const songs = [
     energy: 0.98,
     danceability: 0.6,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s80",
@@ -919,7 +839,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.72,
     valence: 0.6,
-    youtube: "",
   },
 
   // R&B - more
@@ -932,7 +851,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.75,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s82",
@@ -943,7 +861,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.75,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s83",
@@ -954,7 +871,6 @@ const songs = [
     energy: 0.55,
     danceability: 0.6,
     valence: 0.45,
-    youtube: "",
   },
   {
     id: "s84",
@@ -965,7 +881,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.7,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s85",
@@ -976,7 +891,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.4,
     valence: 0.35,
-    youtube: "",
   },
   {
     id: "s86",
@@ -987,7 +901,6 @@ const songs = [
     energy: 0.35,
     danceability: 0.5,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s87",
@@ -998,7 +911,6 @@ const songs = [
     energy: 0.45,
     danceability: 0.6,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s88",
@@ -1009,7 +921,6 @@ const songs = [
     energy: 0.55,
     danceability: 0.45,
     valence: 0.45,
-    youtube: "",
   },
   {
     id: "s89",
@@ -1020,7 +931,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.78,
     valence: 0.75,
-    youtube: "",
   },
   {
     id: "s90",
@@ -1031,7 +941,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.74,
     valence: 0.9,
-    youtube: "",
   },
 
   // Jazz - more
@@ -1044,7 +953,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.35,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s92",
@@ -1055,7 +963,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.55,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s93",
@@ -1066,7 +973,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.35,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s94",
@@ -1077,7 +983,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.55,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s95",
@@ -1088,7 +993,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.4,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s96",
@@ -1099,7 +1003,6 @@ const songs = [
     energy: 0.35,
     danceability: 0.55,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s97",
@@ -1110,7 +1013,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.2,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s98",
@@ -1121,7 +1023,6 @@ const songs = [
     energy: 0.55,
     danceability: 0.6,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s99",
@@ -1132,7 +1033,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.7,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s100",
@@ -1143,7 +1043,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
 
   // Classical - more
@@ -1156,7 +1055,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.1,
     valence: 0.3,
-    youtube: "",
   },
   {
     id: "s102",
@@ -1167,7 +1065,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.2,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s103",
@@ -1178,7 +1075,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.1,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s104",
@@ -1189,7 +1085,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.15,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s105",
@@ -1200,7 +1095,6 @@ const songs = [
     energy: 0.25,
     danceability: 0.12,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s106",
@@ -1211,7 +1105,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.2,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s107",
@@ -1222,7 +1115,6 @@ const songs = [
     energy: 0.45,
     danceability: 0.2,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s108",
@@ -1233,7 +1125,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.1,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s109",
@@ -1244,7 +1135,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.25,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s110",
@@ -1255,7 +1145,6 @@ const songs = [
     energy: 0.15,
     danceability: 0.1,
     valence: 0.4,
-    youtube: "",
   },
 
   // Country - more
@@ -1268,7 +1157,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.6,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s112",
@@ -1279,7 +1167,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.5,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s113",
@@ -1290,7 +1177,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.55,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s114",
@@ -1301,7 +1187,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.5,
     valence: 0.9,
-    youtube: "",
   },
   {
     id: "s115",
@@ -1312,7 +1197,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.58,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s116",
@@ -1323,7 +1207,6 @@ const songs = [
     energy: 0.85,
     danceability: 0.66,
     valence: 0.9,
-    youtube: "",
   },
   {
     id: "s117",
@@ -1334,7 +1217,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.55,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s118",
@@ -1345,7 +1227,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.55,
     valence: 0.55,
-    youtube: "",
   },
   {
     id: "s119",
@@ -1356,7 +1237,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.45,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s120",
@@ -1367,7 +1247,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.64,
     valence: 0.7,
-    youtube: "",
   },
 
   // Indie - more
@@ -1380,7 +1259,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.6,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s122",
@@ -1391,7 +1269,6 @@ const songs = [
     energy: 0.7,
     danceability: 0.78,
     valence: 0.7,
-    youtube: "",
   },
   {
     id: "s123",
@@ -1402,7 +1279,6 @@ const songs = [
     energy: 0.6,
     danceability: 0.7,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s124",
@@ -1413,7 +1289,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.6,
     valence: 0.95,
-    youtube: "",
   },
   {
     id: "s125",
@@ -1424,7 +1299,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.35,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s126",
@@ -1435,7 +1309,6 @@ const songs = [
     energy: 0.86,
     danceability: 0.6,
     valence: 0.65,
-    youtube: "",
   },
   {
     id: "s127",
@@ -1446,7 +1319,6 @@ const songs = [
     energy: 0.8,
     danceability: 0.6,
     valence: 0.8,
-    youtube: "",
   },
   {
     id: "s128",
@@ -1457,7 +1329,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.45,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s129",
@@ -1468,7 +1339,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s130",
@@ -1479,7 +1349,6 @@ const songs = [
     energy: 0.9,
     danceability: 0.5,
     valence: 0.6,
-    youtube: "",
   },
 
   // Ambient - more
@@ -1492,7 +1361,6 @@ const songs = [
     energy: 0.15,
     danceability: 0.1,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s132",
@@ -1503,7 +1371,6 @@ const songs = [
     energy: 0.1,
     danceability: 0.1,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s133",
@@ -1514,7 +1381,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.1,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s134",
@@ -1525,7 +1391,6 @@ const songs = [
     energy: 0.2,
     danceability: 0.18,
     valence: 0.45,
-    youtube: "",
   },
   {
     id: "s135",
@@ -1536,7 +1401,6 @@ const songs = [
     energy: 0.65,
     danceability: 0.6,
     valence: 0.6,
-    youtube: "",
   },
   {
     id: "s136",
@@ -1547,7 +1411,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.2,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s137",
@@ -1558,7 +1421,6 @@ const songs = [
     energy: 0.4,
     danceability: 0.4,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s138",
@@ -1569,7 +1431,6 @@ const songs = [
     energy: 0.5,
     danceability: 0.4,
     valence: 0.5,
-    youtube: "",
   },
   {
     id: "s139",
@@ -1580,7 +1441,6 @@ const songs = [
     energy: 0.3,
     danceability: 0.3,
     valence: 0.4,
-    youtube: "",
   },
   {
     id: "s140",
@@ -1591,6 +1451,5 @@ const songs = [
     energy: 0.2,
     danceability: 0.15,
     valence: 0.4,
-    youtube: "",
   },
 ];
