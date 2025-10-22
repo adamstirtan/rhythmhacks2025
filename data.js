@@ -1,6 +1,5 @@
 /**
  * Music dataset for the workshop.
- * 40 widely-known songs high school students are likely to recognize, balanced across genres.
  * Each song has:
  * - id: unique identifier (s01-s40)
  * - title: song name

@@ -1,4 +1,4 @@
-# RhythmHacks 2025 Music Recommendation Workshop
+# RythmHacks 2025 Music Recommendation Workshop
 
 A no-setup, browser-based app to learn and tinker with content‑based recommendations. Built with vanilla JavaScript, HTML, and CSS for a 60–90 minute workshop. Perfect for experimenting with the math and UX of recommenders.
 
@@ -108,8 +108,6 @@ Open the Debug panel (`D`) to see:
 - Scoring details and match percentage for the current song
 - System info (seed, counts of ratings and high ratings)
 
-## 🙏 Credits and license
+## 🙏 Credits
 
-Created for the RhythmHacks 2025 workshop by Adam Stirtan. Educational use encouraged—fork, modify, and extend.
-
-License: Educational use license (see repository). If not specified, treat as permissive for classroom projects.
+Created for the RythmHacks 2025 workshop by Adam Stirtan. Educational use encouraged—fork, modify, and extend.
