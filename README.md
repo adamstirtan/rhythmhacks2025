@@ -2,11 +2,7 @@
 
 A no-setup, browser-based app to learn and tinker with content‑based recommendations. Built with vanilla JavaScript, HTML, and CSS for a 60–90 minute workshop. Perfect for experimenting with the math and UX of recommenders.
 
-## Getting started
-
-[Live Demo](https://adamstirtan.github.io/rhythmhacks2025/)
-
-No build tools or servers required. Everything runs in the browser. Download the source code and open index.html in your browser.
+# [👉 Launch the web app](https://adamstirtan.github.io/rhythmhacks2025/)
 
 ## What you do in the app
 
@@ -17,19 +13,17 @@ No build tools or servers required. Everything runs in the browser. Download the
 5. Toggle similarity mode (Abs‑Diff vs Cosine) and the Genre Bonus, then observe what changes.
 6. Explore your rating history (view‑only) in the right column.
 
-### Controls and shortcuts
+## Hacking the code
 
-- Similarity function: buttons in the right panel or press `S`
-- Genre bonus: slider in the right panel or press `G` to toggle 0 ↔︎ 0.2
-- Weights: sliders (Tempo, Energy, Danceability, Valence). Press `W` to reset to defaults
-- Debug panel: “Toggle Debug” or press `D`
-- Rate: click stars or press `1`–`5`
+Clone or download the GitHub repository as a zip file. Open the folder using VS Code and open the index.html in your web browser. On Windows use <kbd>CTRL</kbd>+<kbd>O</kbd> and on MacOS use <kbd>CMD</kbd>+<kbd>O</kbd> to open a file on your computer. Select the index.html and open Developer Tools to try new things.
 
-Keyboard hints also appear at the bottom of the page.
+## Google Slides
 
-## How it works (high level)
+https://docs.google.com/presentation/d/1mnEZm1DjfFpTmjJw1MRWbDYAzNAtg_dzcEyVKkJZ5f8/edit?usp=sharing
 
-We use content‑based filtering on four features per song: tempo (normalized), energy, danceability, and valence. Everything is scaled to [0,1]. Tempo is normalized by dividing BPM by 200.
+## How it works
+
+We use content‑based filtering on four features per song: tempo (normalized), energy, danceability, and valence. Everything is scaled to [0,1]. Tempo is normalized by dividing BPM by 200 (because that's a reasonsable average).
 
 1. Learn your preferences from all ratings (push/pull):
 
@@ -56,20 +50,7 @@ We use content‑based filtering on four features per song: tempo (normalized), 
 - Genre bonus: if genre matches topGenre, add $+\text{genreBonus}$.
 - Match %: $\text{match} = \Big\lfloor 100\,\cdot\,\text{clamp}\big(\tfrac{\text{score}}{\text{scoreMax}},0,1\big) \Big\rfloor$, where $\text{scoreMax} = \sum w_i + (\text{genre match?}\;\text{genreBonus}:0)$.
 
-## 🧩 What’s in the box
-
-- `index.html` — App UI and layout
-- `style.css` — Modern, readable workshop styling with genre colors
-- `data.js` — Curated dataset (~140 songs) across 10 genres; optional `youtube` links per song
-- `app.js` — All logic: seeded RNG, preference learning, scoring, UI rendering, keyboard controls, and persistence
-
-State persists in `localStorage` under key `rh2025_ratings` (ratings, current song, weights, similarity mode, genre bonus, debug visibility, seed). Clear it with the “Clear Ratings” button.
-
-Tips:
-
-- Deterministic seed for reproducibility: default 42, override with `?seed=123`
-
-## 🛠️ Hack the code (guided experiments)
+## Things to try!
 
 Great first tweaks for attendees to try during or after the workshop:
 
