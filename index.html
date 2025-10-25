@@ -181,57 +181,28 @@
               </li>
             </ol>
 
-            <h3>Mini-challenges</h3>
+            <h3>Challenges</h3>
             <ul>
               <li>
                 <strong>90% Club:</strong> Achieve a ≥90% match on a song you
                 genuinely like. What settings helped you get there?
               </li>
               <li>
-                <strong>Detective Mode:</strong> Find one
-                <em>false positive</em> (high match but you don’t like it) and
-                one <em>false negative</em> (low match but you like it). What
-                features misled the model?
+                <strong>5th Dimension:</strong> Reduce the dataset to a few
+                songs only. Add a 5th dimension to the songs such as "loudness"
+                in [0,1]. Update the similarity calculations to include this new
+                feature, and see how it affects recommendations. <em>Hint</em>
+                you'll need to update computeUserPreferences(), scoreSong(), and
+                renderBars() to handle the new feature.
               </li>
               <li>
-                <strong>Tuning Challenge:</strong> If the bars show a mismatch
-                on one feature, adjust weights to reduce that mismatch without
-                hurting overall match.
+                <strong>Moods are Clusters:</strong> Similar music tends to
+                group into clusters (e.g., high-energy dance tracks vs.
+                low-energy ballads). Can you add the ability to play music for a
+                certain mood by identifying clusters in the feature space? For
+                example, you could play a workout playlist or one for focusing.
               </li>
             </ul>
-
-            <h3>Tips</h3>
-            <ul>
-              <li>
-                Match % depends on your <strong>weights</strong> and the
-                <strong>genre bonus</strong>.
-              </li>
-              <li>
-                Your <strong>ratings history</strong> is view-only—you can’t
-                re-rate past songs.
-              </li>
-              <li>
-                Keyboard: 1–5 to rate, D = toggle debug, W = reset weights, S =
-                toggle similarity, G = toggle genre bonus.
-              </li>
-              <li>
-                Tempo is normalized by /200 so it fits with other 0–1 features.
-              </li>
-            </ul>
-
-            <p class="note">
-              Done early? Reset weights and try a different “persona” (e.g.,
-              chill/low-energy vs hype/high-energy). Compare how Abs-Diff vs
-              Cosine behaves for each persona.
-            </p>
-          </div>
-
-          <!-- Keyboard Hints -->
-          <div class="keyboard-hint">
-            <strong>Keyboard Shortcuts:</strong>
-            <kbd>1</kbd>-<kbd>5</kbd> Rate | <kbd>D</kbd> Debug |
-            <kbd>W</kbd> Reset Weights | <kbd>S</kbd> Toggle Similarity |
-            <kbd>G</kbd> Toggle Genre Bonus
           </div>
 
           <!-- The Math Behind Similarity (moved to last) -->
@@ -277,6 +248,14 @@
               weights (1 by default), and the denominator includes the genre
               bonus only when it applies.
             </p>
+          </div>
+
+          <!-- Keyboard Hints -->
+          <div class="keyboard-hint">
+            <strong>Keyboard Shortcuts:</strong>
+            <kbd>1</kbd>-<kbd>5</kbd> Rate | <kbd>D</kbd> Debug |
+            <kbd>W</kbd> Reset Weights | <kbd>S</kbd> Toggle Similarity |
+            <kbd>G</kbd> Toggle Genre Bonus
           </div>
         </div>
 
